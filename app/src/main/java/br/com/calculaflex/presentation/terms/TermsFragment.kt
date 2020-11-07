@@ -6,7 +6,7 @@ import br.com.calculaflex.presentation.base.auth.BaseAuthFragment
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
-class HomeFragment : BaseFragment() {
+class TermsFragment : BaseFragment() {
 
     override val layout = R.layout.fragment_terms
 

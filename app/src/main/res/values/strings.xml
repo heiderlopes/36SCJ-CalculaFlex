@@ -25,4 +25,6 @@
 
     <string name="signup_subtitle">Preencha os dados da sua conta</string>
 
+    <string name="loading_message_processing">Processando ....</string>
+
 </resources>
