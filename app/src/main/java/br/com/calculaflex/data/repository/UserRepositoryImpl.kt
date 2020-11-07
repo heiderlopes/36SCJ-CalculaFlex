@@ -1,6 +1,6 @@
 package br.com.calculaflex.data.repository
 
-import br.com.calculaflex.data.remote.UserRemoteDataSource
+import br.com.calculaflex.data.remote.datasource.UserRemoteDataSource
 import br.com.calculaflex.domain.entity.RequestState
 import br.com.calculaflex.domain.entity.User
 import br.com.calculaflex.domain.repository.UserRepository
