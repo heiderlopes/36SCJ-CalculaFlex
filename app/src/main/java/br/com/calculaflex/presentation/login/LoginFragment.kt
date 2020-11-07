@@ -1,6 +1,7 @@
 package br.com.calculaflex.presentation.login
 
 import android.os.Bundle
+import android.security.keystore.UserNotAuthenticatedException
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -11,12 +12,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import br.com.calculaflex.R
-import br.com.calculaflex.data.remote.datasource.UserRemoteFakeDataSourceImpl
+import br.com.calculaflex.data.remote.datasource.UserRemoteFirebaseDataSourceImpl
 import br.com.calculaflex.data.repository.UserRepositoryImpl
 import br.com.calculaflex.domain.entity.RequestState
+import br.com.calculaflex.domain.exceptions.UserNotLoggedException
 import br.com.calculaflex.domain.usecases.LoginUseCase
 import br.com.calculaflex.presentation.base.BaseFragment
 import br.com.calculaflex.presentation.base.auth.NAVIGATION_KEY
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
@@ -27,7 +30,14 @@ class LoginFragment : BaseFragment() {
     private val loginViewModel: LoginViewModel by lazy {
         ViewModelProvider(
             this,
-            LoginViewModelFactory(LoginUseCase(UserRepositoryImpl(UserRemoteFakeDataSourceImpl())))
+            LoginViewModelFactory(
+                LoginUseCase(
+                    UserRepositoryImpl(
+                        (UserRemoteFirebaseDataSourceImpl(
+                                    FirebaseAuth.getInstance()))
+                    )
+                )
+            )
         ).get(LoginViewModel::class.java)
     }
 
@@ -43,6 +53,10 @@ class LoginFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        setUpView(view)
+        registerObserver()
+
         registerBackPressedAction()
     }
 
@@ -97,10 +111,19 @@ class LoginFragment : BaseFragment() {
     private fun showError(throwable: Throwable) {
         hideLoading()
 
-        etEmailLogin.error = null
-        etPasswordLogin.error = null
+        when(throwable) {
+            is UserNotLoggedException -> {}
+            else -> {showMessage(throwable.message)}
+        }
 
-        showMessage(throwable.message)
+//        if(throwable is UserNotLoggedException) {
+//
+//        } else {
+//            etEmailLogin.error = null
+//            etPasswordLogin.error = null
+//
+//
+//        }
     }
 
     private fun registerBackPressedAction() {

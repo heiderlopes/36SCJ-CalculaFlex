@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "514973914036",
+    "firebase_url": "https://calculadoraflex36.firebaseio.com",
+    "project_id": "calculadoraflex36",
+    "storage_bucket": "calculadoraflex36.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:514973914036:android:2c02032e5c618ec50898e1",
+        "android_client_info": {
+          "package_name": "br.com.calculaflex.heiderlopes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "514973914036-ppurunrfmu3i55n3tcprd77nqdfsthni.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-rD58UHnJ-0t7te8gek770zz_FXInfIc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "514973914036-ppurunrfmu3i55n3tcprd77nqdfsthni.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
