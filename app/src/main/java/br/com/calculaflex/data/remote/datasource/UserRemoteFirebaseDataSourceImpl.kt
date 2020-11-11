@@ -1,5 +1,6 @@
 package br.com.calculaflex.data.remote.datasource
 
+import br.com.calculaflex.domain.entity.NewUser
 import br.com.calculaflex.domain.entity.RequestState
 import br.com.calculaflex.domain.entity.User
 import br.com.calculaflex.domain.entity.UserLogin
@@ -49,4 +50,14 @@ class UserRemoteFirebaseDataSourceImpl(
             RequestState.Error(e)
         }
     }
+
+    override suspend fun create(newUser: NewUser): RequestState<User> {
+        return try{
+            firebaseAuth.createUserWithEmailAndPassword(newUser.email, newUser.password).await()
+            RequestState.Success(User(newUser.name))
+        } catch (e: java.lang.Exception) {
+            RequestState.Error(e)
+        }
+    }
+
 }
