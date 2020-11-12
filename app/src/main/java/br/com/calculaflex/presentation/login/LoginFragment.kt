@@ -20,6 +20,7 @@ import br.com.calculaflex.domain.usecases.LoginUseCase
 import br.com.calculaflex.presentation.base.BaseFragment
 import br.com.calculaflex.presentation.base.auth.NAVIGATION_KEY
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
@@ -34,7 +35,9 @@ class LoginFragment : BaseFragment() {
                 LoginUseCase(
                     UserRepositoryImpl(
                         (UserRemoteFirebaseDataSourceImpl(
-                                    FirebaseAuth.getInstance()))
+                            FirebaseAuth.getInstance(),
+                            FirebaseFirestore.getInstance()
+                        ))
                     )
                 )
             )
@@ -111,9 +114,12 @@ class LoginFragment : BaseFragment() {
     private fun showError(throwable: Throwable) {
         hideLoading()
 
-        when(throwable) {
-            is UserNotLoggedException -> {}
-            else -> {showMessage(throwable.message)}
+        when (throwable) {
+            is UserNotLoggedException -> {
+            }
+            else -> {
+                showMessage(throwable.message)
+            }
         }
 
 //        if(throwable is UserNotLoggedException) {

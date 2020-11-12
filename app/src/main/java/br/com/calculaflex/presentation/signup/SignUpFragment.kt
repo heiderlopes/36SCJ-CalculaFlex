@@ -19,6 +19,7 @@ import br.com.concrete.canarinho.watcher.TelefoneTextWatcher
 import br.com.concrete.canarinho.watcher.evento.EventoDeValidacao
 import com.airbnb.lottie.LottieAnimationView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
@@ -32,7 +33,10 @@ class SignUpFragment : BaseFragment() {
             SignUpViewModelFactory(
                 CreateUserUseCase(
                     UserRepositoryImpl(
-                        UserRemoteFirebaseDataSourceImpl(FirebaseAuth.getInstance())
+                        UserRemoteFirebaseDataSourceImpl(
+                            FirebaseAuth.getInstance(),
+                            FirebaseFirestore.getInstance()
+                        )
                     )
                 )
             )

@@ -15,6 +15,7 @@ import br.com.calculaflex.domain.entity.RequestState
 import br.com.calculaflex.domain.usecases.GetUserLoggedUseCase
 import br.com.calculaflex.presentation.base.BaseFragment
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 const val NAVIGATION_KEY = "NAV_KEY"
@@ -29,7 +30,8 @@ abstract class BaseAuthFragment : BaseFragment() {
                 GetUserLoggedUseCase(
                     UserRepositoryImpl(
                         UserRemoteFirebaseDataSourceImpl(
-                            FirebaseAuth.getInstance()
+                            FirebaseAuth.getInstance(),
+                            FirebaseFirestore.getInstance()
                         )
                     ))
             )
